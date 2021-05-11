@@ -8,7 +8,8 @@ LABEL maintainer="Davide Venturini <d.venturini@lineacomune.it>"
 # Set the Current Working Directory inside the container
 WORKDIR /app
 
-RUN apk add git
+#RUN apk add git
+RUN apt-get add git
 RUN go get -u github.com/gorilla/mux
 RUN go get -u github.com/jinzhu/gorm
 RUN go get -u github.com/lib/pq
