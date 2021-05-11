@@ -14,7 +14,7 @@ import (
 
 // User model
 type User struct {
-	ID    int `gorm: "primary_key";"AUTO_INCREMENT"`
+	ID    int `sql:"primary_key;AUTO_INCREMENT"`
 	Name  string
 	Email string
 }
@@ -32,7 +32,11 @@ func getUsers(w http.ResponseWriter, r *http.Request) {
 	db.Find(&users)
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(users)
+	err = json.NewEncoder(w).Encode(users)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
 }
 
 func getUser(w http.ResponseWriter, r *http.Request) {
@@ -48,7 +52,11 @@ func getUser(w http.ResponseWriter, r *http.Request) {
 	db.Debug().Where("ID = ?", params["id"]).First(&user)
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(&user)
+	err = json.NewEncoder(w).Encode(&user)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
 }
 
 func createUser(w http.ResponseWriter, r *http.Request) {
@@ -64,7 +72,11 @@ func createUser(w http.ResponseWriter, r *http.Request) {
 	db.Debug().Create(&user)
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(&user)
+	err = json.NewEncoder(w).Encode(&user)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
 }
 
 func updateUser(w http.ResponseWriter, r *http.Request) {
@@ -81,7 +93,11 @@ func updateUser(w http.ResponseWriter, r *http.Request) {
 	db.Debug().Where("ID = ?", params["id"]).First(&user).Update(&upduser)
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(&user)
+	err = json.NewEncoder(w).Encode(&user)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
 }
 
 func deleteUser(w http.ResponseWriter, r *http.Request) {
@@ -97,7 +113,11 @@ func deleteUser(w http.ResponseWriter, r *http.Request) {
 	db.Debug().Where("ID = ?", params["id"]).Delete(&user)
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(&user)
+	err = json.NewEncoder(w).Encode(&user)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
 }
 
 func handleRequests() {
