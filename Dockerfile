@@ -1,5 +1,6 @@
 # Start from the alpine golang base image
-FROM golang:1.14.15-alpine3.13
+#FROM golang:1.14.15-alpine3.13
+FROM golang:latest
 
 # Add Maintainer Info
 LABEL maintainer="Davide Venturini <d.venturini@lineacomune.it>"
