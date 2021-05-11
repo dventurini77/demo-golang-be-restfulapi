@@ -1,14 +1,15 @@
 # Start from the alpine golang base image
-FROM golang:1.14.15-alpine3.13
 #FROM golang:latest
+FROM golang:1.12
+#FROM golang:1.14.15-alpine3.13
 
 # Add Maintainer Info
-LABEL maintainer="Davide Venturini <d.venturini@lineacomune.it>"
+LABEL maintainer="Davide Venturini <dventurini@tai.it>"
 
 # Set the Current Working Directory inside the container
 WORKDIR /app
 
-RUN apk add git
+#RUN apk add git
 RUN go get -u github.com/gorilla/mux
 RUN go get -u github.com/jinzhu/gorm
 RUN go get -u github.com/lib/pq
